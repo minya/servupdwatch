@@ -3,9 +3,9 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"gopushover"
-	"goutils/config"
-	"goutils/web"
+	"github.com/minya/gopushover"
+	"github.com/minya/goutils/config"
+	"github.com/minya/goutils/web"
 	"io/ioutil"
 	"net/http"
 	"os"
