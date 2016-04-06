@@ -31,7 +31,8 @@ func main() {
 		Transport: web.DefaultTransport(1000),
 	}
 
-	for _, url := range settings.Services {
+	for _, service := range settings.Services {
+		url := service.VersionUrl
 		fmt.Printf("process %v\n", url)
 		response, getErr := client.Get(url)
 		if getErr != nil {
@@ -52,13 +53,13 @@ func main() {
 		}
 
 		var stateChanged bool
-		if state.Map[url] != version.CommitHash {
-			state.Map[url] = version.CommitHash
+		if state.Map[service.Id] != version.CommitHash {
+			state.Map[service.Id] = version.CommitHash
 			stateChanged = true
-			fmt.Printf("version changed for %v\n", url)
-			Push(url, version.CommitHash)
+			fmt.Printf("version changed for %v\n", service.Name)
+			Push(service.Name, version.CommitHash)
 		} else {
-			fmt.Printf("No changes for %v\n", url)
+			fmt.Printf("No changes for %v\n", service.Name)
 		}
 
 		if stateChanged {
@@ -105,8 +106,14 @@ func setState(state State) {
 	ioutil.WriteFile(statePath, newStateBin, 0660)
 }
 
+type ServiceInfo struct {
+	Id         string
+	Name       string
+	VersionUrl string
+}
+
 type Settings struct {
-	Services []string
+	Services []ServiceInfo
 }
 
 type ServiceVersion struct {
