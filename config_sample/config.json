@@ -1,0 +1,14 @@
+{
+    "Services": [
+        {
+            "Id": "service1",
+            "VersionUrl": "http://host.domain/version",
+            "Name": "Service one"
+        },
+        {
+            "Id": "service2",
+            "VersionUrl": "http://anotherhost.domain/version",
+            "Name": "One more service"
+        }
+    ]
+}
